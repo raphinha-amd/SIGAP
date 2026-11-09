@@ -14,6 +14,8 @@ class ManageUsers extends ManageRecords
     {
         return [
             CreateAction::make(),
+            UserResource::templateAction(),
+            UserResource::importAction(),
         ];
     }
 }
