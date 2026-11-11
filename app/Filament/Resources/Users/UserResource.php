@@ -28,6 +28,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Excel as ExcelType;
 use Maatwebsite\Excel\Facades\Excel;
@@ -44,7 +45,7 @@ class UserResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return auth()->user()?->role === 'admin';
+        return Auth::user()?->role === 'admin';
     }
 
     public static function form(Schema $schema): Schema
@@ -95,8 +96,8 @@ class UserResource extends Resource
                             ->label('Kata sandi')
                             ->password()
                             ->revealable()
-                            ->required(fn (string $operation): bool => $operation === 'create')
-                            ->dehydrated(fn (?string $state): bool => filled($state))
+                            ->required(fn(string $operation): bool => $operation === 'create')
+                            ->dehydrated(fn(?string $state): bool => filled($state))
                             ->minLength(8)
                             ->maxLength(255)
                             ->helperText('Minimal 8 karakter. Kosongkan saat edit jika tidak ingin mengubahnya.'),
@@ -105,7 +106,7 @@ class UserResource extends Resource
                             ->default(true)
                             ->inline(false),
                         Hidden::make('email_verified_at')
-                            ->default(fn (?User $record): ?string => filled($record) ? $record->email_verified_at : now()),
+                            ->default(fn(?User $record): ?string => filled($record) ? $record->email_verified_at : now()),
                     ]),
             ]);
     }
@@ -126,13 +127,19 @@ class UserResource extends Resource
                 TextColumn::make('no_telp')
                     ->searchable(),
                 TextColumn::make('role')
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                    ->formatStateUsing(fn(string $state): string => match ($state) {
                         'admin' => 'Admin',
                         'petugas' => 'Petugas',
                         'masyarakat' => 'Masyarakat',
                         default => $state,
                     })
-                    ->badge(),
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'admin' => 'warning',      // Orange
+                        'petugas' => 'info',       // Biru
+                        'masyarakat' => 'success', // Hijau
+                        default => 'gray',
+                    }),
                 IconColumn::make('status_akun')
                     ->boolean(),
             ])
@@ -242,7 +249,7 @@ class UserResource extends Resource
 
                 if ($result->failed() > 0) {
                     $details = collect($result->errors)
-                        ->map(fn (string $message, int $line): string => "Baris {$line}: {$message}")
+                        ->map(fn(string $message, int $line): string => "Baris {$line}: {$message}")
                         ->implode("\n");
                     $body .= "\n\n{$details}";
                 }
@@ -268,7 +275,7 @@ class UserResource extends Resource
         return Action::make('downloadUserTemplate')
             ->label('Download Template')
             ->icon(Heroicon::OutlinedDocumentArrowDown)
-            ->action(fn () => Excel::download(
+            ->action(fn() => Excel::download(
                 new UserTemplateExport,
                 'template_user_sigap.xlsx',
                 ExcelType::XLSX,
