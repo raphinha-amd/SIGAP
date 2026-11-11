@@ -114,6 +114,11 @@ class AspirasiResource extends Resource
                 TextColumn::make('isi_aspirasi')
                     ->limit(50)
                     ->searchable(),
+                TextColumn::make('balasan_aspirasi_count')
+                    ->label('Jumlah Balasan')
+                    ->counts('balasanAspirasi')
+                    ->suffix(' balasan')
+                    ->sortable(),
             ])
             ->filters([
                 //

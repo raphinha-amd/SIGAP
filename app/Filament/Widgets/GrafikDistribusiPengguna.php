@@ -8,6 +8,7 @@ use Filament\Widgets\ChartWidget;
 class GrafikDistribusiPengguna extends ChartWidget
 {
     protected ?string $heading = 'Grafik Distribusi Pengguna';
+    protected static ?int $sort = 2;
 
     protected function getData(): array
     {

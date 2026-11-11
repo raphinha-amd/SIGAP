@@ -32,7 +32,6 @@ class KelolaLaporan extends Page implements HasTable
     protected static ?string $slug = 'manage-laporan/{record}/kelola';
 
     protected static bool $shouldRegisterNavigation = false;
-  
     public int|string $recordId;
 
     public function mount(int|string $record): void

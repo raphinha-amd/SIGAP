@@ -8,6 +8,8 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class StatistikPengguna extends StatsOverviewWidget
 {
+    protected int | string | array $columnSpan = 'full';
+    protected static ?int $sort = 1;
     protected function getStats(): array
     {
         return [

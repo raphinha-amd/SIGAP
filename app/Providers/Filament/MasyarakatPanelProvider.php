@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Masyarakat\Widgets\StatistikLaporanMasyarakat;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -27,6 +28,7 @@ class MasyarakatPanelProvider extends PanelProvider
             ->id('masyarakat')
             ->path('masyarakat')
             ->login()
+            ->globalSearch(false)
             ->colors([
                 'primary' => Color::Blue,
             ])
@@ -37,8 +39,7 @@ class MasyarakatPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Masyarakat/Widgets'), for: 'App\Filament\Masyarakat\Widgets')
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+                StatistikLaporanMasyarakat::class,
             ])
             ->middleware([
                 EncryptCookies::class,

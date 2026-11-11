@@ -8,6 +8,7 @@ use Filament\Widgets\ChartWidget;
 class GrafikStatusPengguna extends ChartWidget
 {
     protected ?string $heading = 'Grafik Status Pengguna';
+    protected static ?int $sort = 3;
 
     protected function getData(): array
     {

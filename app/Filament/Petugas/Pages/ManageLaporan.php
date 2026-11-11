@@ -26,6 +26,23 @@ class ManageLaporan extends Page implements HasTable
 
     protected static ?int $navigationSort = 1;
 
+    public static function getNavigationBadge(): ?string
+    {
+        $total = Laporan::where('status_laporan', 'menunggu')->count();
+
+        return $total > 0 ? (string) $total : null;
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'danger';
+    }
+
+    public static function getNavigationBadgeTooltip(): ?string
+    {
+        return 'Jumlah laporan yang belum ditanggapi';
+    }
+
     public static function canAccess(): bool
     {
         return Auth::check();
