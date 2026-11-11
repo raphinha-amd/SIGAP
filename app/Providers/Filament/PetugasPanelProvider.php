@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Auth\Pages\LoginWithNikOrEmail;
 use App\Filament\Petugas\Widgets\GrafikKategoriLaporan;
 use App\Filament\Petugas\Widgets\StatistikLaporanPetugas;
 use Filament\Http\Middleware\Authenticate;
@@ -26,7 +27,7 @@ class PetugasPanelProvider extends PanelProvider
         return $panel
             ->id('petugas')
             ->path('petugas')
-            ->login()
+            ->login(LoginWithNikOrEmail::class)
             ->globalSearch(false)
             ->colors([
                 'primary' => Color::Blue,

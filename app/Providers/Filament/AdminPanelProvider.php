@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Auth\Pages\LoginWithNikOrEmail;
 use App\Filament\Widgets\StatistikPengguna;
 use App\Filament\Widgets\GrafikDistribusiPengguna;
 use App\Filament\Widgets\GrafikStatusPengguna;
@@ -28,7 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
+            ->login(LoginWithNikOrEmail::class)
             ->globalSearch(false)
             ->colors([
                 'primary' => Color::Blue,
