@@ -28,6 +28,7 @@ class MasyarakatPanelProvider extends PanelProvider
             ->id('masyarakat')
             ->path('masyarakat')
             ->login(LoginWithNikOrEmail::class)
+            ->favicon(asset('asset/favicon.png'))
             ->globalSearch(false)
             ->profile()
             ->colors([

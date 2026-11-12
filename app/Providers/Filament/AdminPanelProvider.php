@@ -29,6 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->favicon(asset('asset/favicon.png'))
             ->login(LoginWithNikOrEmail::class)
             ->globalSearch(false)
             ->colors([

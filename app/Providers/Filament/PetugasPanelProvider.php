@@ -29,6 +29,7 @@ class PetugasPanelProvider extends PanelProvider
             ->path('petugas')
             ->login(LoginWithNikOrEmail::class)
             ->globalSearch(false)
+            ->favicon(asset('asset/favicon.png'))
             ->colors([
                 'primary' => Color::Blue,
             ])
