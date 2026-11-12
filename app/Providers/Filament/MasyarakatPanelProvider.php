@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Auth\Pages\LoginWithNikOrEmail;
+use App\Filament\Masyarakat\Pages\Auth\EditProfile;
 use App\Filament\Masyarakat\Widgets\StatistikLaporanMasyarakat;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -28,6 +29,7 @@ class MasyarakatPanelProvider extends PanelProvider
             ->path('masyarakat')
             ->login(LoginWithNikOrEmail::class)
             ->globalSearch(false)
+            ->profile()
             ->colors([
                 'primary' => Color::Blue,
             ])
